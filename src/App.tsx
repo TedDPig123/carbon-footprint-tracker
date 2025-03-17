@@ -23,7 +23,7 @@ function App() {
                 notificationText="Don't forget to unplug all your unused appliances!"
               />
             <SetDay />
-              <div className='flex flex-col bg-[linear-gradient(120deg,rgba(7,112,0,0.34)-26.24%,rgba(205,228,176,0)134.68%)]
+              <div className='z-2 flex flex-col bg-[linear-gradient(120deg,rgba(7,112,0,0.34)-26.24%,rgba(205,228,176,0)134.68%)]
               rounded-[41px] justify-center items-center p-[32px] w-[90%] shadow-lg min-w-[560px] max-w-[800px]'>
                 <GoalModule
                   carbonGenerated={2.4}

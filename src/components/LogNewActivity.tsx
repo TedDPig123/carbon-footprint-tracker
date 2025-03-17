@@ -26,7 +26,7 @@ export default function LogNewActivities({ activitiesDone }: { activitiesDone: {
 
     function ActivityDisplay({ x, y, index }: { x: string, y: number, index: number }) {
         return (
-            <div className='flex flex-row bg-[#0221006E] w-[100%] h-[42px] mt-[6px] rounded-[18px] justify-between items-center pl-[18px] pr-[18px] text-white text-[15px]'>
+            <div className='z-3 flex flex-row bg-[#0221006E] w-[100%] h-[42px] mt-[6px] rounded-[18px] justify-between items-center pl-[18px] pr-[18px] text-white text-[15px]'>
                 <div className='flex flex-row'>
                     <button onClick={() => handleRemove(index)} className='mr-2 cursor-pointer'>
                         <img className='h-[15px] w-[15px]' src={minusIcon} alt='Remove' />
