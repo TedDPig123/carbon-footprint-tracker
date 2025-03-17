@@ -7,18 +7,17 @@ import { useActivitiesContext } from '../contexts/ActivitiesContext';
 import { useDayContext } from '../contexts/DayContext';
 import { useEffect } from 'react';
 
-export default function LogNewActivities({ activitiesDone }: { activitiesDone: { activity: string, carbonContribution: number }[] }) {
-    const today = `activities-${new Date().toISOString().split('T')[0]}`;
-    
-    const { showLogger, toggle } = useLoggerContext();
-    const { activitiesArray, addActivity, removeActivity, loadActivities } = useActivitiesContext();
+export default function LogNewActivities({ activitiesDone }: { activitiesDone: { activity: string, carbonContribution: number }[] }) {    
+    const {showLogger, toggle } = useLoggerContext();
+    const {activitiesArray, addActivity, removeActivity, loadActivities } = useActivitiesContext();
+    const {currentDay, setDay} = useDayContext();
       
     useEffect(() => {
         const loadData = async () => {
-            await loadActivities(today);
+            await loadActivities(currentDay.toISOString().split('T')[0]);
         };
         loadData();
-    }, []);
+    }, [currentDay]);
 
     function handleRemove(index: number) {
         removeActivity(index);

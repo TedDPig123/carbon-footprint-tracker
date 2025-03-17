@@ -3,6 +3,8 @@ import React, { createContext, useState, ReactNode, useContext } from 'react';
 interface DayContextType {
     currentDay: Date;
     setDay: (date: Date) => void;
+    nextDay: () => void;
+    prevDay: () => void;
 }
 
 const DayContext = createContext<DayContextType | undefined>(undefined);
@@ -12,11 +14,28 @@ export const DayProvider = ({ children }: { children: ReactNode }) => {
 
     const setDay = (date: Date) => {
         setCurrentDay(date);
-        console.log("Switched to day:", date);
     };
 
+    const nextDay = () => {
+        setCurrentDay(curr => {
+            const nextDay = new Date(curr);
+            nextDay.setDate(curr.getDate() + 1);
+            return nextDay;
+        });
+        console.log("Switched to day:", currentDay);
+    }
+
+    const prevDay = () => {
+        setCurrentDay(curr => {
+            const prevDay = new Date(curr);
+            prevDay.setDate(curr.getDate() - 1);
+            return prevDay;
+        });
+        console.log("Switched to day:", currentDay);
+    }
+
     return (
-        <DayContext.Provider value={{ currentDay, setDay }}>
+        <DayContext.Provider value={{ currentDay, setDay, nextDay, prevDay}}>
             {children}
         </DayContext.Provider>
     );

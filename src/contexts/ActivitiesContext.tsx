@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, ReactNode, useContext } from 'react';
+import { useDayContext } from './DayContext';
 
 interface Activity {
     label: string;
@@ -22,16 +23,18 @@ const getStorageKey = (date: string) => `activities-${date}`;
 
 export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
     const [activitiesArray, setActivitiesArray] = useState<Activity[]>([]);
+    const {currentDay} = useDayContext();
 
     const loadActivities = async (date: string) => {
         try {
-            const stored = localStorage.getItem(date);
-            console.log("cheer", getStorageKey(date));
+            const storageKey = getStorageKey(date);
+            const stored = localStorage.getItem(storageKey);
             if (stored) {
                 setActivitiesArray(JSON.parse(stored));
-                console.log("Loaded activities for date:", date);
             } else {
-                setActivitiesArray([]);
+                const emptyActivities: Activity[] = [];
+                localStorage.setItem(storageKey, JSON.stringify(emptyActivities));
+                setActivitiesArray(emptyActivities);
             }
         } catch (error) {
             console.error("Failed to load activities:", error);
@@ -51,7 +54,7 @@ export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
     const addActivity = (x: Activity) => {
         setActivitiesArray((prev) => {
             const updated = [...prev, x];
-            saveActivities(getStorageKey(new Date().toISOString().split('T')[0]), updated);
+            saveActivities(getStorageKey(currentDay.toISOString().split('T')[0]), updated);
             return updated;
         });
     };
@@ -59,7 +62,7 @@ export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
     const removeActivity = (index: number) => {
         setActivitiesArray((prev) => {
             const updated = prev.filter((_, i) => i !== index);
-            saveActivities(getStorageKey(new Date().toISOString().split('T')[0]), updated);
+            saveActivities(getStorageKey(currentDay.toISOString().split('T')[0]), updated);
             return updated;
         });
     };
@@ -74,7 +77,7 @@ export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
 export const useActivitiesContext = (): ActivitiesContextType => {
     const context = useContext(ActivitiesContext);
     if (!context) {
-        throw new Error('ActivitiesProvider is required to access ActivitiesContext');
+        throw new Error('needs context providah');
     }
     return context;
 };

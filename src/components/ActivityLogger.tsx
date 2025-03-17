@@ -1,7 +1,8 @@
 import Select from "react-select";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLoggerContext } from '../contexts/ShowLogger';
 import { useActivitiesContext } from "../contexts/ActivitiesContext";
+import { useDayContext } from "../contexts/DayContext";
 
 export default function ActivityLogger() {
     class Activity {
@@ -36,12 +37,17 @@ export default function ActivityLogger() {
     const [inputValue, setInputValue] = useState<string>("");
 
     const { showLogger, toggle } = useLoggerContext();
-    const { activitiesArray, addActivity} = useActivitiesContext();
+    const { activitiesArray, addActivity, loadActivities} = useActivitiesContext();
+    const { currentDay, setDay } = useDayContext();
     
     const activityData = Object.keys(activities).map((key) => ({
         label: activities[key].label,
         value: key,
     }));
+    
+    useEffect(() => {
+            loadActivities(currentDay.toISOString().split('T')[0]);
+    }, [currentDay]);
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
