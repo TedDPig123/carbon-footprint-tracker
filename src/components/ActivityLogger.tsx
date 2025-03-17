@@ -62,6 +62,10 @@ export default function ActivityLogger() {
             alert("Enter a valid number, please.");
             return;
         }
+        if (parseInt(inputValue) < 0){
+            alert("Enter a positive number, please.");
+            return;
+        }
         if (selectedActivityKey !== null) {
             addActivity({
                 label: activities[selectedActivityKey].label,
@@ -95,6 +99,7 @@ export default function ActivityLogger() {
                                 placeholder="..."
                                 value={inputValue}
                                 onChange={handleInputChange}
+                                min="0"
                             />
                             <p className="pl-2">{activities[selectedActivityKey].quant}</p>
                         </div>

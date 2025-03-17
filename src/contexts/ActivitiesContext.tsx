@@ -18,14 +18,14 @@ interface ActivitiesContextType {
 
 const ActivitiesContext = createContext<ActivitiesContextType | undefined>(undefined);
 
-const getStorageKey = (date: string) => `${date}`;
+const getStorageKey = (date: string) => `activities-${date}`;
 
 export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
     const [activitiesArray, setActivitiesArray] = useState<Activity[]>([]);
 
     const loadActivities = async (date: string) => {
         try {
-            const stored = localStorage.getItem(getStorageKey(date));
+            const stored = localStorage.getItem(date);
             console.log("cheer", getStorageKey(date));
             if (stored) {
                 setActivitiesArray(JSON.parse(stored));
@@ -41,7 +41,7 @@ export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
 
     const saveActivities = (date: string, activities: Activity[]) => {
         try {
-            localStorage.setItem(getStorageKey(date), JSON.stringify(activities));
+            localStorage.setItem(date, JSON.stringify(activities));
             console.log("Saved activities for date:", date);
         } catch (error) {
             console.error("Failed to save activities:", error);
@@ -51,7 +51,7 @@ export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
     const addActivity = (x: Activity) => {
         setActivitiesArray((prev) => {
             const updated = [...prev, x];
-            saveActivities(new Date().toISOString().split('T')[0], updated);
+            saveActivities(getStorageKey(new Date().toISOString().split('T')[0]), updated);
             return updated;
         });
     };
@@ -59,7 +59,7 @@ export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
     const removeActivity = (index: number) => {
         setActivitiesArray((prev) => {
             const updated = prev.filter((_, i) => i !== index);
-            saveActivities(new Date().toISOString().split('T')[0], updated);
+            saveActivities(getStorageKey(new Date().toISOString().split('T')[0]), updated);
             return updated;
         });
     };
