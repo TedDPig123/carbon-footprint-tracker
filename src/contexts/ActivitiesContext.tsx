@@ -42,7 +42,7 @@ export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
-    const saveActivities = (date: string, activities: Activity[]) => {
+    const saveActivities = (date: Date, activities: Activity[]) => {
         try {
             localStorage.setItem(date, JSON.stringify(activities));
             console.log("Saved activities for date:", date);

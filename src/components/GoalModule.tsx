@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useActivitiesContext } from '../contexts/ActivitiesContext';
-import { useLoggerContext } from '../contexts/ShowLogger';
+import { useGoalContext } from '../contexts/DailyGoalContext';
+import { useDayContext } from '../contexts/DayContext';
 
 export default function GoalModule() {
-    const { activitiesArray, addActivity } = useActivitiesContext();
-    const {dailyGoal} = useLoggerContext();
+    const { activitiesArray } = useActivitiesContext();
+    const {dailyGoal, loadGoal} = useGoalContext();
+    const {currentDay} = useDayContext();
 
     const [carbonGenerated, setCarbonGenerated] = useState(0);
     const [carbonOffset, setCarbonOffset] = useState(0);
     const [carbonProgressBar, setCarbonProgressBar] = useState(0);
 
     useEffect(() => {
+        loadGoal(currentDay);
+
         const generated = activitiesArray
             .filter(e => e.mult >= 0)
             .reduce((prev, e) => prev + (e.num * e.mult), 0);
@@ -30,7 +34,7 @@ export default function GoalModule() {
         setCarbonGenerated(generated);
         setCarbonOffset(offset);
         setCarbonProgressBar(progBar);
-    }, [activitiesArray]);
+    }, [activitiesArray, currentDay, dailyGoal]);
 
     return (
         <>

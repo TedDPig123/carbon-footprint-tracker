@@ -1,25 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useGoalContext } from "../contexts/DailyGoalContext";
+import { useDayContext } from "../contexts/DayContext";
 import { useLoggerContext } from "../contexts/ShowLogger";
 
-export default function SetGoal(){
+export default function SetGoal() {
     const [inputValue, setInputValue] = useState("");
-    const {dailyGoal, setDailyGoal, toggleGoal} = useLoggerContext();
+    const { dailyGoal, loadGoal, saveGoal } = useGoalContext();
+    const {toggleGoal} = useLoggerContext();
+    const { currentDay } = useDayContext();
+
+    useEffect(() => {
+        loadGoal(currentDay);
+    }, [currentDay, loadGoal]);
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
         setInputValue(value);
     }
 
-    function handleSubmit(){
-        if (inputValue.length === 0){
+    function handleSubmit() {
+        if (inputValue.length === 0) {
             alert("Enter a valid number, please.");
             return;
         }
-        if (parseInt(inputValue) < 0){
+        if (parseInt(inputValue) < 0) {
             alert("Enter a positive number, please.");
             return;
         }
-        setDailyGoal(parseInt(inputValue));
+        saveGoal(currentDay, parseInt(inputValue));
+        setInputValue(inputValue);
         toggleGoal();
     }
 
@@ -38,9 +47,12 @@ export default function SetGoal(){
                         min="0"
                     />
                     <p className='text-[15px] mt-1'>kg CO₂e</p>
+                    {dailyGoal !== null && (
+                        <p className='mt-2'>Current goal: {dailyGoal} kg CO₂e</p>
+                    )}
                     <div className="flex flex-row justify-center mb-4 mt-2">
                         <div onClick={toggleGoal} className='cursor-pointer mr-1 flex flex-row justify-center bg-[#0221006E] w-[100px] h-[42px] mt-[6px] rounded-[18px] justify-between items-center pl-[18px] pr-[18px] text-white text-[15px]'>
-                            <p className='font-semibold'>Cancel</p>
+                            <p className='font-semibold'>Remove</p>
                         </div>
                         <div onClick={handleSubmit} className='cursor-pointer ml-1 flex flex-row justify-center bg-[#0221006E] w-[100px] h-[42px] mt-[6px] rounded-[18px] justify-between items-center pl-[18px] pr-[18px] text-white text-[15px]'>
                             <p className='font-semibold'>Add</p>
