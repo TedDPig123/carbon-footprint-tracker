@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactNode, useContext } from 'react';
+import React, { createContext, useState, ReactNode, useContext } from 'react';
 import { useDayContext } from './DayContext';
 
 interface Activity {
@@ -14,7 +14,7 @@ interface ActivitiesContextType {
     addActivity: (x: Activity) => void;
     removeActivity: (index: number) => void;
     loadActivities: (date: string) => Promise<void>;
-    saveActivities: (date: string, activities: Activity[]) => void;
+    saveActivities: (date: Date, activities: Activity[]) => void;
 }
 
 const ActivitiesContext = createContext<ActivitiesContextType | undefined>(undefined);
@@ -44,7 +44,7 @@ export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
 
     const saveActivities = (date: Date, activities: Activity[]) => {
         try {
-            localStorage.setItem(date, JSON.stringify(activities));
+            localStorage.setItem(getStorageKey(currentDay.toISOString().split('T')[0]), JSON.stringify(activities));
             console.log("Saved activities for date:", date);
         } catch (error) {
             console.error("Failed to save activities:", error);
@@ -54,7 +54,7 @@ export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
     const addActivity = (x: Activity) => {
         setActivitiesArray((prev) => {
             const updated = [...prev, x];
-            saveActivities(getStorageKey(currentDay.toISOString().split('T')[0]), updated);
+            saveActivities(currentDay, updated);
             return updated;
         });
     };
@@ -62,7 +62,7 @@ export const ActivitiesProvider = ({ children }: { children: ReactNode }) => {
     const removeActivity = (index: number) => {
         setActivitiesArray((prev) => {
             const updated = prev.filter((_, i) => i !== index);
-            saveActivities(getStorageKey(currentDay.toISOString().split('T')[0]), updated);
+            saveActivities(currentDay, updated);
             return updated;
         });
     };

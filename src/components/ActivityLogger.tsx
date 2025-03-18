@@ -19,7 +19,7 @@ export default function ActivityLogger() {
         }
     }
 
-    const activities = {
+    const activities : { [key: string]: Activity } = {
         drivingGasCar: new Activity("Driving a Gas Car", "Drove", "Miles", 0.32),
         airTravel: new Activity("Air Travel (per passenger)", "Flew", "Miles", 0.4),
         electricityConsumption: new Activity("Electricity", "Used up", "kWh", 0.9),
@@ -36,9 +36,9 @@ export default function ActivityLogger() {
     const [carbonMade, setCarbonMade] = useState<number>(0);
     const [inputValue, setInputValue] = useState<string>("");
 
-    const { showLogger, toggle } = useLoggerContext();
-    const { activitiesArray, addActivity, loadActivities} = useActivitiesContext();
-    const { currentDay, setDay } = useDayContext();
+    const {toggle } = useLoggerContext();
+    const {addActivity, loadActivities} = useActivitiesContext();
+    const { currentDay} = useDayContext();
     
     const activityData = Object.keys(activities).map((key) => ({
         label: activities[key].label,
@@ -91,7 +91,7 @@ export default function ActivityLogger() {
                     <Select
                         options={activityData}
                         placeholder="Select an activity"
-                        onChange={(item) => setSelectedActivityKey(item.value)}
+                        onChange={(item) => {if (item) {setSelectedActivityKey(item.value)} else {alert("Item not included")}}}
                     />
                 </div>
                 {selectedActivityKey !== null && (

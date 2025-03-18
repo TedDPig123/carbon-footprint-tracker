@@ -1,17 +1,16 @@
 import ActivityLogger from './ActivityLogger';
 import addIcon from '../assets/plus-128.png';
 import minusIcon from '../assets/minus-128.png';
-import { useState } from 'react';
 import { useLoggerContext } from '../contexts/ShowLogger';
 import { useActivitiesContext } from '../contexts/ActivitiesContext';
 import { useDayContext } from '../contexts/DayContext';
 import { useEffect } from 'react';
 import SetGoal from './SetGoal';
 
-export default function LogNewActivities({ activitiesDone }: { activitiesDone: { activity: string, carbonContribution: number }[] }) {    
-    const {showLogger, toggle, toggleGoal, showGoal } = useLoggerContext();
-    const {activitiesArray, addActivity, removeActivity, loadActivities } = useActivitiesContext();
-    const {currentDay, setDay} = useDayContext();
+export default function LogNewActivities() {    
+    const {showLogger, toggle, showGoal } = useLoggerContext();
+    const {activitiesArray, removeActivity, loadActivities } = useActivitiesContext();
+    const {currentDay} = useDayContext();
       
     useEffect(() => {
         const loadData = async () => {
