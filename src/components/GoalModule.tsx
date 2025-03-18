@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useActivitiesContext } from '../contexts/ActivitiesContext';
+import { useLoggerContext } from '../contexts/ShowLogger';
 
 export default function GoalModule() {
     const { activitiesArray, addActivity } = useActivitiesContext();
+    const {dailyGoal} = useLoggerContext();
+
     const [carbonGenerated, setCarbonGenerated] = useState(0);
     const [carbonOffset, setCarbonOffset] = useState(0);
     const [carbonProgressBar, setCarbonProgressBar] = useState(0);
-    const carbonLimit = 100;
 
     useEffect(() => {
         const generated = activitiesArray
@@ -17,7 +19,7 @@ export default function GoalModule() {
             .filter(e => e.mult < 0)
             .reduce((prev, e) => prev + (Math.abs(e.num) * e.mult), 0);
 
-        let progBar = ((generated + offset) / carbonLimit) * 100;
+        let progBar = ((generated + offset) / dailyGoal) * 100;
         if (progBar > 100){
             progBar = 100;
             alert("You have reached your daily limit!");
@@ -39,7 +41,7 @@ export default function GoalModule() {
                     <p className='text-[15px]'>CO₂e Generated</p>
                 </div>
                 <div className='flex flex-col flex-auto items-center pt-[12px] mt-[2px]'>
-                    <h2 className='text-[20px] font-bold mb-[-5px]'>{(carbonLimit - carbonGenerated - carbonOffset).toFixed(2)}kg</h2>
+                    <h2 className='text-[20px] font-bold mb-[-5px]'>{(dailyGoal - carbonGenerated - carbonOffset).toFixed(2)}kg</h2>
                     <p className='text-[15px]'>Allocated CO₂e Remaining</p>
                     <div className='progressBar relative bg-[#0A4C0675] w-[100%] h-[6px] rounded-full opacity-75 mt-[10px]'>
                         <div className='progressBar relative bg-white h-[6px] rounded-full opacity-95'

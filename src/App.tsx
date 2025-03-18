@@ -11,11 +11,13 @@ import { ShowLoggerProvider } from './contexts/ShowLogger.tsx'
 import { ActivitiesProvider } from './contexts/ActivitiesContext.tsx'
 import { DayProvider } from './contexts/DayContext.tsx'
 import SetDay from './components/SetDay.tsx'
+
 function App() {
   return (
     <>
       <DayProvider>
         <ActivitiesProvider>
+          <ShowLoggerProvider>
           <Navbar />
           <div className='flex flex-col items-center justify-center'>
             <h1 className='text-[25px] m-2.5'>✨ Welcome Back! ✨</h1>
@@ -30,9 +32,9 @@ function App() {
                   carbonOffset={1.2}
                   carbonLimit={8}
                 />
-                  <ShowLoggerProvider>
+                  
                     <LogNewActivities />
-                  </ShowLoggerProvider>
+                  
                 
 
                 <div className='flex flex-row w-[100%] items-stretch'>
@@ -42,6 +44,7 @@ function App() {
 
               </div>
           </div>
+          </ShowLoggerProvider>
         </ActivitiesProvider>
       </DayProvider>
     </>

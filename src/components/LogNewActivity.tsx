@@ -6,9 +6,10 @@ import { useLoggerContext } from '../contexts/ShowLogger';
 import { useActivitiesContext } from '../contexts/ActivitiesContext';
 import { useDayContext } from '../contexts/DayContext';
 import { useEffect } from 'react';
+import SetGoal from './SetGoal';
 
 export default function LogNewActivities({ activitiesDone }: { activitiesDone: { activity: string, carbonContribution: number }[] }) {    
-    const {showLogger, toggle } = useLoggerContext();
+    const {showLogger, toggle, toggleGoal, showGoal } = useLoggerContext();
     const {activitiesArray, addActivity, removeActivity, loadActivities } = useActivitiesContext();
     const {currentDay, setDay} = useDayContext();
       
@@ -69,6 +70,15 @@ export default function LogNewActivities({ activitiesDone }: { activitiesDone: {
                     </div>
                 </div>
             )}
+            
+            {showGoal && (
+                <div className="fixed top-0 backdrop-blur-xs left-0 w-full h-full flex justify-center items-center">
+                    <div className="absolute z-2">
+                        <SetGoal />
+                    </div>
+                </div>
+            )}
+
         </>
     );
 }
