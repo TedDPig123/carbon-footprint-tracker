@@ -1,54 +1,38 @@
-# React + TypeScript + Vite
+# Your Carbon 🌱
+## The React App for Tracking your Carbon Footprint!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[INSERT IMAGE]
 
-Currently, two official plugins are available:
+Your Carbon is a React web application designed to help you track your carbon footprint for each day, helping you become more conscious of your environmental impact! All within a sleek UI.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+### Activity Logging
+You can log your daily activities with the "Log New Activity" module. Simply click on the plus button, choose the appropriate activity from the pop-up menu, fill in the specifics, and click add! If you want to remove any activity, click on the minus button on said activity. Additionally, you can view your progress from previous days by switching between dates!
 
-## Expanding the ESLint configuration
+[Image]
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Goal Setting
+It's important to set a goal for your carbon footprint each day, so you can click on 'Set Daily Goal' to do so! You can even set a different daily goal for each day. With each activity added, the goal module will update to reflect the amount of carbon you've generated and how much you've offset. A progress bar will also fill up to reflect how far you are from your daily limit.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+[Image]
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Notifications
+Each day, the app will let you know of a different way you can reduce your carbon footprint, reminding you of your responsibility to reduce energy waste and to keep you on track to meet your goals!
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+[Image]
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### Customizable UI
+To accomodate to your own personal style, you can switch between light mode and dark mode with the click of the sun icon! These styles will be further refined in a future update.
+
+[Image]
+
+### Note Taking
+For each day, you can add your own personal note to your dashboard to keep you motivated. Perhaps you would like to share a note on how you became more environmentally conscious that day!
+
+[Image]
+
+### Local Storage
+To keep all your goals and activities intact, this application uses local storage on your browser to save your activity data, goal data, and note data for each day.
+
+## How to Run
+Simple download all the files from this repository, and in your terminal type 'npm install' and then 'npm run dev' to run this proof-of-concept!
