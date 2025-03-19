@@ -29,7 +29,7 @@ export default function SetNote() {
         <>
             <div className="flex flex-col p-5 min-w-[400px] w-[30%]">
                 <div className="pt-2 pl-3 pr-3 flex flex-col items-center bg-[linear-gradient(95deg,_#CDE4B0_-22.13%,_#077000_153.73%)] rounded-[15px] text-[#022100]">
-                    <h1 className="text-[20px] font-semibold">Set a Daily Goal!</h1>
+                    <h1 className="text-[20px] font-semibold">Write a Note for Yourself!</h1>
                     <textarea
                         name="textInput"
                         id="textInput"

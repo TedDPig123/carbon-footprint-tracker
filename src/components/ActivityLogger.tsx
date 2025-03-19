@@ -103,7 +103,7 @@ export default function ActivityLogger() {
                             <input
                                 id="numInput"
                                 type="number"
-                                className="bg-white w-[50px] pl-1"
+                                className="bg-white w-[50px] pl-1 text-[#022100]"
                                 placeholder="..."
                                 value={inputValue}
                                 onChange={handleInputChange}
