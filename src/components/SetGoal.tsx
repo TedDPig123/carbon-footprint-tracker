@@ -52,7 +52,7 @@ export default function SetGoal() {
                     )}
                     <div className="flex flex-row justify-center mb-4 mt-2">
                         <div onClick={toggleGoal} className='cursor-pointer mr-1 flex flex-row justify-center bg-[#0221006E] w-[100px] h-[42px] mt-[6px] rounded-[18px] justify-between items-center pl-[18px] pr-[18px] text-white text-[15px]'>
-                            <p className='font-semibold'>Remove</p>
+                            <p className='font-semibold'>Cancel</p>
                         </div>
                         <div onClick={handleSubmit} className='cursor-pointer ml-1 flex flex-row justify-center bg-[#0221006E] w-[100px] h-[42px] mt-[6px] rounded-[18px] justify-between items-center pl-[18px] pr-[18px] text-white text-[15px]'>
                             <p className='font-semibold'>Add</p>

@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 export default function SetDay() {
     const today = new Date();
     const { loadActivities } = useActivitiesContext();
-    const { setDay, currentDay, nextDay, prevDay } = useDayContext();
+    const {currentDay, nextDay, prevDay } = useDayContext();
 
     useEffect(() => {
         loadActivities(currentDay.toISOString().split('T')[0]);
