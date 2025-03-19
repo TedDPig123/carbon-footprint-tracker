@@ -4,9 +4,11 @@ interface ShowLoggerContextType {
     showNote: boolean;
     showLogger: boolean;
     showGoal: boolean;
+    isLightMode: boolean;
     toggle: () => void;
     toggleGoal: () => void;
     toggleNotes: () => void;
+    toggleLightMode: () => void;
 }
 
 const LoggerContext = createContext<ShowLoggerContextType | undefined>(undefined);
@@ -29,8 +31,12 @@ export const ShowLoggerProvider = ({ children }: { children: ReactNode }) => {
         setShowNote((prev)=>!prev);
     }
 
+    const toggleLightMode = () => {
+        setLightMode((prev)=>!prev);
+    }
+
     return (
-        <LoggerContext.Provider value={{ showLogger, toggle, toggleGoal, showGoal, toggleNotes, showNote, isLightMode, setLightMode}}>
+        <LoggerContext.Provider value={{ showLogger, toggle, toggleGoal, showGoal, toggleNotes, showNote, isLightMode, toggleLightMode}}>
             {children}
         </LoggerContext.Provider>
     );

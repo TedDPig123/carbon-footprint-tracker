@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useLoggerContext } from '../contexts/ShowLogger';
 import { useActivitiesContext } from "../contexts/ActivitiesContext";
 import { useDayContext } from "../contexts/DayContext";
+import { lightModeStyles, darkModeStyles } from "../contexts/DisplayColors";
 
 export default function ActivityLogger() {
     class Activity {
@@ -32,27 +33,28 @@ export default function ActivityLogger() {
         publicTransit: new Activity("Using Public Transit Instead of Driving", "Rode public transport", "miles", -0.53)
     };
 
+    const { isLightMode } = useLoggerContext();
+    const styles = isLightMode ? lightModeStyles : darkModeStyles;
     const [selectedActivityKey, setSelectedActivityKey] = useState<string | null>(null);
     const [carbonMade, setCarbonMade] = useState<number>(0);
     const [inputValue, setInputValue] = useState<string>("");
 
-    const {toggle } = useLoggerContext();
-    const {addActivity, loadActivities} = useActivitiesContext();
-    const { currentDay} = useDayContext();
-    
+    const { toggle } = useLoggerContext();
+    const { addActivity, loadActivities } = useActivitiesContext();
+    const { currentDay } = useDayContext();
+
     const activityData = Object.keys(activities).map((key) => ({
         label: activities[key].label,
         value: key,
     }));
-    
+
     useEffect(() => {
-            loadActivities(currentDay.toISOString().split('T')[0]);
+        loadActivities(currentDay.toISOString().split('T')[0]);
     }, [currentDay]);
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         const value = e.target.value;
         setInputValue(value);
-
         if (selectedActivityKey && value) {
             const numValue = parseFloat(value);
             if (!isNaN(numValue)) {
@@ -64,11 +66,11 @@ export default function ActivityLogger() {
     }
 
     function handleSubmit() {
-        if (inputValue.length === 0){
+        if (inputValue.length === 0) {
             alert("Enter a valid number, please.");
             return;
         }
-        if (parseInt(inputValue) < 0){
+        if (parseInt(inputValue) < 0) {
             alert("Enter a positive number, please.");
             return;
         }
@@ -86,8 +88,8 @@ export default function ActivityLogger() {
 
     return (
         <div className="flex flex-col min-w-[500px] w-[30%] ml-3">
-            <div className="flex flex-col items-stretch bg-[linear-gradient(95deg,_#CDE4B0_-22.13%,_#077000_153.73%)] w-[100%] rounded-[15px] text-[#022100]">
-                <div className="m-5">
+            <div className={`flex flex-col items-stretch w-[100%] rounded-[15px] ${styles.gradientBg} text-[#D1F1DA]`}>
+                <div className="m-5 text-[#022100]">
                     <Select
                         options={activityData}
                         placeholder="Select an activity"
@@ -109,15 +111,14 @@ export default function ActivityLogger() {
                             />
                             <p className="pl-2">{activities[selectedActivityKey].quant}</p>
                         </div>
-
                         <p>{activities[selectedActivityKey].mult < 0 ? "" : "+"} {carbonMade.toFixed(1)}kgs CO₂e</p>
                     </div>
                 )}
                 <div className="flex flex-row justify-center mb-4 mt-2">
-                    <div onClick={toggle} className='cursor-pointer mr-1 flex flex-row justify-center bg-[#0221006E] w-[100px] h-[42px] mt-[6px] rounded-[18px] justify-between items-center pl-[18px] pr-[18px] text-white text-[15px]'>
+                    <div onClick={toggle} className={`cursor-pointer mr-1 flex flex-row justify-center w-[100px] h-[42px] mt-[6px] rounded-[18px] justify-between items-center pl-[18px] pr-[18px] text-[15px] bg-[#0221006E]`}>
                         <p className='font-semibold'>Cancel</p>
                     </div>
-                    <div onClick={handleSubmit} className='cursor-pointer ml-1 flex flex-row justify-center bg-[#0221006E] w-[100px] h-[42px] mt-[6px] rounded-[18px] justify-between items-center pl-[18px] pr-[18px] text-white text-[15px]'>
+                    <div onClick={handleSubmit} className={`cursor-pointer ml-1 flex flex-row justify-center w-[100px] h-[42px] mt-[6px] rounded-[18px] justify-between items-center pl-[18px] pr-[18px] text-[15px] bg-[#0221006E]`}>
                         <p className='font-semibold'>Add</p>
                     </div>
                 </div>
