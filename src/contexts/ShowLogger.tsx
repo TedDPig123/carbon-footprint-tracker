@@ -17,7 +17,7 @@ export const ShowLoggerProvider = ({ children }: { children: ReactNode }) => {
     const [showNote, setShowNote] = useState(false);
     const [showLogger, setShowLogger] = useState(false);
     const [showGoal, setGoal] = useState(false);
-    const [isLightMode, setLightMode] = useState(false);
+    const [isLightMode, setLightMode] = useState(true);
 
     const toggle = () => {
         setShowLogger((prev) => !prev);
