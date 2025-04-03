@@ -15,7 +15,7 @@ export default function SetNote() {
     }, [currentDay, dailyNote]);
     
     
-    function handleInputChange(event) {
+    function handleInputChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
         setInputValue(event.target.value);
     }
 

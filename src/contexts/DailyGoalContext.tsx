@@ -1,6 +1,4 @@
-import React, { createContext, useState, ReactNode, useContext } from 'react';
-import { useDayContext } from './DayContext';
-
+import { createContext, useState, ReactNode, useContext } from 'react';
 interface GoalContextType {
     dailyGoal: number;
     setDailyGoal: (goal: number) => void;

@@ -5,7 +5,7 @@ export default function Notification(){
 
     const [showNotif, setShowNotif] = useState(true);
 
-    const possibleNotifications : [message: string] = [
+    const possibleNotifications : string[] = [
         "Switch to energy-efficient LED bulbs to save power!",
         "Take shorter showers to conserve water and reduce heating energy!",
         "Use reusable bags, bottles, and containers to cut down on plastic waste!",
