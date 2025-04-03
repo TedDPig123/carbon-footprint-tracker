@@ -2,6 +2,7 @@
 ## The React App for Tracking your Carbon Footprint!
 
 Your Carbon is a React web application designed to help you track your carbon footprint for each day, helping you become more conscious of your environmental impact! All within a sleek UI.
+Try it out [here](https://teddpig123.github.io/carbon-footprint-tracker/) on GitHub Pages! 
 
 
 https://github.com/user-attachments/assets/cba3a5c7-dbfe-437b-b182-05930409ffd1
