@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "http://teddpig123.github.io/carbon-footprint-tracker",
+  "homepage": "http://teddpig123.github.io/carbon-footprint-tracker/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
