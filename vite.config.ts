@@ -8,7 +8,7 @@ import svgr from 'vite-plugin-svgr';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(),tailwindcss(),svgr()],
-  base: "/carbon-footprint-tracker",
+  base: process.env.NODE_ENV === 'production' ? '/carbon-footprint-tracker/' : '/',
   build: {
     outDir: 'dist',
   },
